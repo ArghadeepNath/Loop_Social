@@ -23,3 +23,11 @@ export async function signOut() {
   if (error) throw error;
   localStorage.removeItem("isAuthenticated");
 }
+
+export async function checkAuthStatus() {
+  const { data: { session } } = await supabase.auth.getSession();
+  console.log("Current session:", session); // Add this to debug
+  return !!session;
+}
+
+

@@ -218,3 +218,5 @@ create trigger update_group_member_count_trigger
 after insert or delete on group_members
 for each row
 execute function update_group_member_count();
+
+

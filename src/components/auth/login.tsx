@@ -28,21 +28,26 @@ export default function Login() {
     setIsLoading(true);
 
     try {
+      console.log('Attempting login with email:', email); // Debug log
+      
       const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
+        email: email.trim(), // Trim whitespace
+        password: password
       });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Login error details:', error); // Debug log
+        throw error;
+      }
 
+      console.log('Login successful:', data); // Debug log
       localStorage.setItem("isAuthenticated", "true");
       setIsLoading(false);
       navigate("/feed", { replace: true });
     } catch (error: any) {
       toast({
         title: "Login failed",
-        description:
-          error.message || "Please check your credentials and try again",
+        description: error.message || "Invalid email or password",
         variant: "destructive",
       });
       setIsLoading(false);
@@ -202,3 +207,6 @@ export default function Login() {
     </div>
   );
 }
+
+
+
